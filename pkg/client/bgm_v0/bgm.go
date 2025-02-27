@@ -230,11 +230,14 @@ func (cli *Client) callJson(ctx context.Context, method, absolutePath, authToken
 			return err
 		}
 	}
+	//tokenJson := "\n{\n  \"access_token\": \""+authToken+"\"}"
 	headers := make(map[string]string)
 	headers["Content-Type"] = "application/x-www-form-urlencoded"
 	if authToken != "" {
-		headers["Authorization"] = authToken
+		headers["Authorization"] = "Bearer " + authToken /*+ "?scope=read"*/
+		//fmt.Println(headers["Authorization"])
 	}
+	headers["User-Agent"] = "sai/my-private-project"
 	return cli.Call(ctx, method, absolutePath, nil, headers, retry, body, out)
 }
 

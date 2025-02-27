@@ -7,7 +7,7 @@ import (
 )
 
 //GetSubject 根据id获得单个条目的详细信息
-func (cli *Client) GetSubject(ctx context.Context, authToken string, subjectId string) (*items.SubjectBgm, error) {
+func (cli *Client) GetSubject(ctx context.Context, authToken string, subjectId string, body []string) (*items.SubjectBgm, error) {
 
 	//var subjectList []*items.SubjectBgm
 	//
@@ -20,7 +20,7 @@ func (cli *Client) GetSubject(ctx context.Context, authToken string, subjectId s
 	if subjectId == "" {
 		return nil, errno.Errorf(errno.ErrBadRequest, "subject id is required!")
 	}
-	err := cli.GET(ctx, "/v0/subjects/"+subjectId, authToken, 0, param, nil, resp)
+	err := cli.GET(ctx, "/v0/subjects/"+subjectId, authToken, 0, param, body, resp)
 	if err != nil {
 		return nil, err
 	}
